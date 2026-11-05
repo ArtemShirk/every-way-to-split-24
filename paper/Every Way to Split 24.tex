@@ -1,0 +1,445 @@
+\documentclass[11pt]{amsart}
+\usepackage[margin=1.15in]{geometry}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{booktabs,array}
+\usepackage{listings}
+\usepackage[dvipsnames]{xcolor}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage[colorlinks=true,linkcolor=blue!50!black,citecolor=blue!50!black,urlcolor=blue!50!black]{hyperref}
+
+\lstset{basicstyle=\ttfamily\footnotesize,columns=fullflexible,keepspaces=true,frame=single,
+        framerule=0.3pt,xleftmargin=4pt,xrightmargin=4pt,showstringspaces=false}
+
+\newtheorem{theorem}{Theorem}
+\renewcommand{\thetheorem}{\Alph{theorem}}
+\newtheorem{lemma}{Lemma}[section]
+\newtheorem{proposition}[lemma]{Proposition}
+\newtheorem{corollary}[lemma]{Corollary}
+\newtheorem{maincor}[theorem]{Corollary}
+\theoremstyle{definition}
+\newtheorem{definition}[lemma]{Definition}
+\newtheorem{example}[lemma]{Example}
+\theoremstyle{remark}
+\newtheorem{remark}[lemma]{Remark}
+\newtheorem{question}[lemma]{Question}
+
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\h}{\mathfrak{H}}
+\newcommand{\leg}[2]{\left(\frac{#1}{#2}\right)}
+\newcommand{\form}[3]{[#1,#2,#3]}
+
+\title[Every way to split 24]{Every way to split 24:\\ twelve eta products and the principal form}
+\author{Artem C. Shirk}
+\address{Robert Morris University, Moon Township, Pennsylvania}
+\date{November 4, 2026}
+
+\begin{document}
+
+\begin{abstract}
+For each integer $1\le a\le 12$ put $b=24-a$ and $f_a(z)=\eta(az)\eta(bz)=\sum_{n\ge1}c_a(n)q^n$. We prove
+\[
+\eta(az)\,\eta(bz)\;=\;\tfrac12\bigl(\theta_{Q_0}(z)-\theta_{Q_4}(z)\bigr),\qquad
+Q_0=x^2+axy+6ay^2,\quad Q_4=4x^2+(a-4)xy+(a+1)y^2,
+\]
+where both forms have discriminant $-ab$, $Q_0$ is the principal form, and $Q_4$ is, up to inversion, the only primitive class of that discriminant that properly represents $4$. Consequently, for every prime $p\nmid ab$, the coefficient $c_a(p)$ equals $2$ when $p$ is represented by $Q_0$, equals $-1$ or $-2$ when $p$ is represented by $Q_4$, and is $0$ otherwise. In particular $c_a(p)=2$ exactly when $p$ is represented by the principal form of discriminant $-ab$. Five of the twelve products are not Hecke eigenforms, and the rule holds for them too. The proof is the standard finite one: both sides lie in $M_1(\Gamma_0(ab),\chi_{-ab})$ and agree beyond the Sturm bound, which is at most $24$ in every case. We also give the elementary identity $\sum_{au^2+bv^2=24n}\chi_{12}(u)\chi_{12}(v)=2\bigl(r_{Q_0}(n)-r_{Q_4}(n)\bigr)$ and a bijective proof of its principal half for $a=1$.
+
+Part~I is written for specialists. Part~II explains the same result to a reader with a first course in algebra or calculus and no number theory.
+\end{abstract}
+
+\maketitle
+\tableofcontents
+
+%======================================================================
+\part*{Part I. Statement and proof}
+%======================================================================
+
+\section{Results}\label{sec:results}
+
+Throughout, $z\in\h$, $q=e^{2\pi i z}$, and
+\[
+\eta(z)=q^{1/24}\prod_{n\ge1}(1-q^n).
+\]
+For a positive definite binary quadratic form $Q=\form{A}{B}{C}=Ax^2+Bxy+Cy^2$ write $r_Q(n)=\#\{(x,y)\in\Z^2:Q(x,y)=n\}$ and $\theta_Q(z)=\sum_{n\ge0}r_Q(n)q^n$. Its discriminant is $B^2-4AC$. For a discriminant $d<0$, $h(d)$ is the number of proper equivalence classes of primitive positive definite forms of discriminant $d$, and $\chi_d(n)=\leg{d}{n}$ is the Kronecker symbol.
+
+Fix an integer $a$ with $1\le a\le 12$ and set
+\[
+b=24-a,\qquad d_a=-ab,\qquad f_a(z)=\eta(az)\eta(bz)=q\prod_{n\ge1}(1-q^{an})(1-q^{bn})=\sum_{n\ge1}c_a(n)q^n .
+\]
+Because $a+b=24$, the factor $q^{(a+b)/24}$ is exactly $q$, so $f_a$ is an honest power series with integer coefficients and $c_a(1)=1$. Define
+\[
+Q_0^{(a)}=\form{1}{a}{6a}=x^2+axy+6ay^2,\qquad Q_4^{(a)}=\form{4}{a-4}{a+1}=4x^2+(a-4)xy+(a+1)y^2 .
+\]
+A one-line computation gives $a^2-24a=-ab$ and $(a-4)^2-16(a+1)=a^2-24a$, so both forms have discriminant $d_a$. Both are primitive: $\gcd(a-4,a+1)$ divides $5$, which is prime to $4$. Since $Q_0$ has leading coefficient $1$, it lies in the principal class.
+
+\begin{theorem}\label{thm:A}
+For every $1\le a\le 12$,
+\[
+\eta(az)\,\eta\bigl((24-a)z\bigr)=\tfrac12\Bigl(\theta_{Q_0^{(a)}}(z)-\theta_{Q_4^{(a)}}(z)\Bigr),
+\]
+that is, $c_a(n)=\tfrac12\bigl(r_{Q_0}(n)-r_{Q_4}(n)\bigr)$ for every $n\ge1$. The class of $Q_4^{(a)}$ and its inverse are the only primitive classes of discriminant $d_a$ that properly represent $4$.
+\end{theorem}
+
+\begin{maincor}[the prime rule]\label{cor:B}
+Let $p$ be a prime with $p\nmid ab$. Then
+\[
+c_a(p)=\begin{cases}
+\ \ 2 & \text{if $p$ is represented by $Q_0^{(a)}$},\\
+-1 & \text{if $p$ is represented by $Q_4^{(a)}$ and $a\notin\{3,4,8,12\}$},\\
+-2 & \text{if $p$ is represented by $Q_4^{(a)}$ and $a\in\{3,4,8,12\}$},\\
+\ \ 0 & \text{otherwise.}
+\end{cases}
+\]
+In particular $c_a(p)=2$ if and only if $p$ is represented by the principal form of discriminant $-ab$. For the primes $p\mid ab$ the only nonzero values are $c_1(23)=c_2(11)=1$ and $c_3(7)=c_4(5)=-1$.
+\end{maincor}
+
+\begin{maincor}[density]\label{cor:C}
+The primes $p$ with $c_a(p)=2$ have Dirichlet density $1/(2h(d_a))$.
+\end{maincor}
+
+Table~\ref{tab:main} lists the data. The reduced forms are equivalent to $Q_0^{(a)}$ and $Q_4^{(a)}$; the column ``on $Q_4$'' is the value of $c_a(p)$ at primes $p\nmid ab$ represented by $Q_4$.
+
+\begin{table}[h]
+\centering\small
+\renewcommand{\arraystretch}{1.15}
+\begin{tabular}{@{}r r r r l l r l@{}}
+\toprule
+$a$ & $b$ & $d_a$ & $h$ & $Q_0$ reduced & $Q_4$ reduced & on $Q_4$ & first primes with $c_a(p)=2$\\
+\midrule
+1  & 23 & $-23$  & 3  & $x^2+xy+6y^2$  & $2x^2+xy+3y^2$  & $-1$ & 59, 101, 167, 173, 211\\
+2  & 22 & $-44$  & 3  & $x^2+11y^2$    & $3x^2+2xy+4y^2$ & $-1$ & 47, 53, 103, 163, 199\\
+3  & 21 & $-63$  & 4  & $x^2+xy+16y^2$ & $4x^2+xy+4y^2$  & $-2$ & 67, 79, 127, 163, 277\\
+4  & 20 & $-80$  & 4  & $x^2+20y^2$    & $4x^2+5y^2$     & $-2$ & 29, 89, 101, 181, 229\\
+5  & 19 & $-95$  & 8  & $x^2+xy+24y^2$ & $4x^2+xy+6y^2$  & $-1$ & 131, 239, 389, 419, 461\\
+6  & 18 & $-108$ & 3  & $x^2+27y^2$    & $4x^2+2xy+7y^2$ & $-1$ & 31, 43, 109, 127, 157\\
+7  & 17 & $-119$ & 10 & $x^2+xy+30y^2$ & $4x^2+3xy+8y^2$ & $-1$ & 263, 443, 557, 701, 1019\\
+8  & 16 & $-128$ & 4  & $x^2+32y^2$    & $4x^2+4xy+9y^2$ & $-2$ & 41, 113, 137, 257, 313\\
+9  & 15 & $-135$ & 6  & $x^2+xy+34y^2$ & $4x^2+3xy+9y^2$ & $-1$ & 139, 151, 199, 331, 541\\
+10 & 14 & $-140$ & 6  & $x^2+35y^2$    & $4x^2+2xy+9y^2$ & $-1$ & 71, 149, 179, 331, 359\\
+11 & 13 & $-143$ & 10 & $x^2+xy+36y^2$ & $4x^2+xy+9y^2$  & $-1$ & 179, 467, 653, 719, 797\\
+12 & 12 & $-144$ & 4  & $x^2+36y^2$    & $4x^2+9y^2$     & $-2$ & 37, 61, 157, 193, 313\\
+\bottomrule
+\end{tabular}
+\caption{The twelve splittings of $24$.}\label{tab:main}
+\end{table}
+
+\begin{remark}[what is classical]\label{rem:known}
+The case $a=1$ is van der Blij's identity $\eta(z)\eta(23z)=\frac12(\theta_{[1,1,6]}-\theta_{[2,1,3]})$ \cite{vdB}. For $a=6$, Corollary~\ref{cor:B} combined with Gauss's criterion says that the coefficient of $q^p$ in $q\prod(1-q^{6n})(1-q^{18n})$ is $2$ exactly when $p\equiv1\pmod 3$ and $2$ is a cube modulo $p$ \cite[\S4]{Cox}. Identities of this type between weight-one $\eta$-products and theta series are catalogued level by level in K\"ohler's monograph \cite{Koh}, and the seven cases $a\in\{1,2,3,4,6,8,12\}$ appear in Martin's list of multiplicative $\eta$-quotients \cite{Mar}. We have not found the twelve cases stated together, nor the uniform description $Q_4=\form{4}{a-4}{a+1}$; we make no claim of priority.
+\end{remark}
+
+\begin{remark}[eigenforms]\label{rem:eigen}
+For $a\in\{1,2,3,4,6,8,12\}$ the form $f_a$ is a Hecke eigenform with complex multiplication by $\Q(\sqrt{d_a})$. For $a\in\{5,7,9,10,11\}$ it is not: its coefficients are not multiplicative, for instance $c_5(2)=c_5(3)=0$ while $c_5(6)=-1$, and likewise $c_7(18)=c_9(10)=c_{10}(15)=c_{11}(14)=-1$ although in each case both coprime factors have coefficient $0$. Theorem~\ref{thm:A} shows that the prime rule does not depend on multiplicativity: it comes from the shape $\frac12(\theta_{Q_0}-\theta_{Q_4})$ alone.
+\end{remark}
+
+\section{Preliminaries}\label{sec:prelim}
+
+\subsection{The eta function as a theta series}
+Let $\chi_{12}(m)=\leg{12}{m}$, so $\chi_{12}(m)=1$ if $m\equiv\pm1\pmod{12}$, $\chi_{12}(m)=-1$ if $m\equiv\pm5\pmod{12}$, and $\chi_{12}(m)=0$ if $\gcd(m,6)>1$.
+
+\begin{lemma}\label{lem:eta}
+$\displaystyle\eta(z)=\sum_{m\ge1}\chi_{12}(m)\,q^{m^2/24}$. Consequently, for all $n\ge1$,
+\[
+c_a(n)=\sum_{\substack{u,v\ge1\\ au^2+bv^2=24n}}\chi_{12}(u)\chi_{12}(v)=\frac14\sum_{\substack{(u,v)\in\Z^2\\ au^2+bv^2=24n}}\chi_{12}(u)\chi_{12}(v).
+\]
+\end{lemma}
+
+\begin{proof}
+Euler's pentagonal theorem gives $\prod_{n\ge1}(1-q^n)=\sum_{k\in\Z}(-1)^k q^{k(3k-1)/2}$. Since $\frac1{24}+\frac{k(3k-1)}2=\frac{(6k-1)^2}{24}$,
+\[
+\eta(z)=\sum_{k\in\Z}(-1)^k q^{(6k-1)^2/24}.
+\]
+As $k$ runs over $\Z$, $m=|6k-1|$ runs over the positive integers prime to $6$, each once ($k\ge1$ gives $m\equiv5\pmod 6$, $k\le0$ gives $m\equiv1\pmod 6$). Moreover $m\equiv\pm1\pmod{12}$ when $k$ is even and $m\equiv\pm5\pmod{12}$ when $k$ is odd, so $(-1)^k=\chi_{12}(m)$. Multiplying the expansions of $\eta(az)$ and $\eta(bz)$ gives the first formula for $c_a(n)$; the second follows because $\chi_{12}$ is even and vanishes at $0$.
+\end{proof}
+
+\subsection{Modularity}
+
+\begin{lemma}\label{lem:mod}
+$f_a\in S_1\bigl(\Gamma_0(ab),\chi_{d_a}\bigr)$.
+\end{lemma}
+
+\begin{proof}
+Write $f_a=\prod_{\delta\mid N}\eta(\delta z)^{r_\delta}$ with $N=ab$ and $r_a=r_b=1$ (for $a=12$, $r_{12}=2$). Then $\sum\delta r_\delta=a+b=24$ and $\sum (N/\delta)r_\delta=b+a=24$, the weight is $k=\frac12\sum r_\delta=1$ and $s=\prod\delta^{r_\delta}=ab$. By the theorem of Gordon, Hughes and Newman \cite[Thm.~1.64]{Ono}, $f_a(\gamma z)=\chi(d)(cz+d)f_a(z)$ for $\gamma=\left(\begin{smallmatrix}*&*\\c&d\end{smallmatrix}\right)\in\Gamma_0(N)$ with $\chi(d)=\leg{(-1)^k s}{d}=\leg{-ab}{d}=\chi_{d_a}(d)$. Ligozat's formula \cite[Thm.~1.65]{Ono} for the order at a cusp $c/d$, namely $\frac{N}{24}\sum_\delta\frac{\gcd(d,\delta)^2 r_\delta}{\gcd(d,N/d)\,d\,\delta}$, is positive because every $r_\delta>0$. So $f_a$ is holomorphic on $\h$ and vanishes at every cusp.
+\end{proof}
+
+\begin{lemma}\label{lem:theta}
+If $Q$ is a primitive positive definite binary form of discriminant $d<0$, then $\theta_Q\in M_1\bigl(\Gamma_0(|d|),\chi_d\bigr)$.
+\end{lemma}
+
+\begin{proof}
+This is the classical theorem on theta series of positive definite quadratic forms \cite[Ch.~10]{Iw}, \cite[Ch.~IX]{Sch}. For $Q=\form{A}{B}{C}$ the Gram matrix $M=\left(\begin{smallmatrix}2A&B\\B&2C\end{smallmatrix}\right)$ has $\det M=|d|$ and $|d|\,M^{-1}=\left(\begin{smallmatrix}2C&-B\\-B&2A\end{smallmatrix}\right)$ is even integral, so the level divides $|d|$, and the character is $\leg{(-1)^{1}\det M}{\cdot}=\chi_d$.
+\end{proof}
+
+\begin{lemma}[Sturm \cite{St}]\label{lem:sturm}
+Let $g\in M_k(\Gamma_0(N),\chi)$ have integer Fourier coefficients. If the coefficients of $q^n$ in $g$ vanish for all $n\le\frac{k}{12}[\mathrm{SL}_2(\Z):\Gamma_0(N)]$, then $g=0$. Here $[\mathrm{SL}_2(\Z):\Gamma_0(N)]=N\prod_{p\mid N}(1+1/p)$.
+\end{lemma}
+
+\subsection{Primes represented by binary forms}
+
+\begin{lemma}\label{lem:primes}
+Let $d<-4$ be a discriminant, $Q$ a primitive positive definite form of discriminant $d$, and $p$ a prime with $p\nmid d$.
+\begin{enumerate}
+\item If $\chi_d(p)=-1$, then $r_Q(p)=0$ for every such $Q$.
+\item If $\chi_d(p)=1$, there is $B$ with $B^2\equiv d\pmod{4p}$, and the forms $P_\pm=\form{p}{\pm B}{(B^2-d)/4p}$ are primitive of discriminant $d$ and inverse to each other in the form class group. Then
+\[
+r_Q(p)=2\bigl([Q\sim P_+]+[Q\sim P_-]\bigr),
+\]
+where $[\,\cdot\,]$ is $1$ if the statement holds and $0$ otherwise. In particular $r_Q(p)\in\{0,2,4\}$, and at most one class pair $\{C,C^{-1}\}$ represents $p$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Every representation of the prime $p$ is proper. A proper representation $(x,y)$ of $p$ by $Q$ extends to $\gamma\in\mathrm{SL}_2(\Z)$ with first column $(x,y)^T$, and $Q\circ\gamma=\form{p}{B'}{C'}$ with $B'^2\equiv d\pmod{4p}$; the class of $B'$ modulo $2p$ does not depend on the choice of $\gamma$, and two representations give the same $B'\bmod 2p$ exactly when they differ by an automorph of $Q$. For $d<-4$ there are two automorphs, $\pm1$. Conversely each $B'$ with $B'^2\equiv d\pmod{4p}$ and $\form{p}{B'}{*}\sim Q$ arises this way \cite[\S2]{Cox}, \cite[Ch.~2]{Bu}. So $r_Q(p)=2\cdot\#\{B'\bmod 2p:\ B'^2\equiv d\ (4p),\ \form{p}{B'}{*}\sim Q\}$. For odd $p\nmid d$ the congruence $B'^2\equiv d\pmod{4p}$ has $1+\chi_d(p)$ solutions modulo $2p$ (the parity of $B'$ is forced); for $p=2$ and $d$ odd it has two solutions modulo $4$ if $d\equiv1\pmod8$ and none if $d\equiv5\pmod 8$, which again is $1+\chi_d(2)$. When there are two, they are $\pm B$, distinct because $p\nmid B$, and $\form{p}{-B}{*}$ is the inverse of $\form{p}{B}{*}$.
+\end{proof}
+
+\subsection{The class that represents 4}
+
+\begin{proposition}\label{prop:Q4}
+The primitive forms of discriminant $d_a$ that properly represent $4$ are exactly the forms properly equivalent to $Q_4^{(a)}$ or to its inverse $\form{4}{4-a}{a+1}$. The principal class does not properly represent $4$. The class of $Q_4^{(a)}$ is its own inverse exactly when $a\in\{3,4,8,12\}$.
+\end{proposition}
+
+\begin{proof}
+A form properly represents $m$ if and only if it is properly equivalent to some $\form{m}{B}{C}$ \cite[Lemma~2.3]{Cox}, and $\form{4}{B}{C}\sim\form{4}{B+8k}{*}$ via $x\mapsto x+ky$. So the classes in question are those of $\form{4}{B}{(B^2-d_a)/16}$ with $B$ running over the residues modulo $8$ satisfying $B^2\equiv d_a\pmod{16}$, restricted to primitive forms. Note $d_a=a^2-24a\equiv(a-4)^2\pmod{16}$.
+
+If $a$ is odd, $B$ is odd and odd squares are $\equiv1$ ($B\equiv\pm1\bmod 8$) or $\equiv9$ ($B\equiv\pm3\bmod8$) modulo $16$. So the solutions are exactly $B\equiv\pm(a-4)\pmod 8$, giving $Q_4$ and $\form{4}{4-a}{a+1}$.
+
+If $a=2e$ is even, $B=2B'$ with $B'^2\equiv(e-2)^2\pmod 4$, so $B'\equiv e\pmod 2$ and $B\equiv a-4$ or $B\equiv a\pmod 8$. The first gives $Q_4$. The second gives $\form{4}{a}{3a/2}=\form{4}{2e}{3e}$, which is not primitive when $e$ is even ($a\in\{4,8,12\}$); when $e$ is odd ($a\in\{2,6,10\}$) we have $a\equiv 12-a\equiv 4-a\pmod 8$, so it is equivalent to the inverse $\form{4}{4-a}{a+1}$.
+
+The reduced principal form $x^2+Bxy+Cy^2$ of discriminant $d_a$ has $B\in\{0,1\}$ and $C\ge6$ in all twelve cases, so for $y\ne0$ its value $(x+By/2)^2+(C-B^2/4)y^2$ is at least $C-\frac14>4$, and with $y=0$ the value $4$ needs $x=\pm2$, which is not proper. Finally, a reduced form $\form{A}{B}{C}$ is properly equivalent to its inverse exactly when $B=0$, $B=A$ or $A=C$. Among the reduced forms of $Q_4$ in Table~\ref{tab:main} this happens for $a=3$ ($A=C$), $a=4,12$ ($B=0$) and $a=8$ ($B=A$), and for no other $a$.
+\end{proof}
+
+\section{Proof of Theorem A}\label{sec:proofA}
+
+Put $N=ab=|d_a|$ and
+\[
+g_a=2f_a-\theta_{Q_0^{(a)}}+\theta_{Q_4^{(a)}} .
+\]
+By Lemmas~\ref{lem:mod} and \ref{lem:theta}, $g_a\in M_1(\Gamma_0(N),\chi_{d_a})$, and its coefficients are integers. The Sturm bound $B_a=\frac1{12}N\prod_{p\mid N}(1+1/p)$ is listed in Table~\ref{tab:sturm}; it never exceeds $24$. The coefficients of $g_a$ vanish for all $n\le 10^5$ (Section~\ref{sec:comp}), in particular for $n\le B_a$. By Lemma~\ref{lem:sturm}, $g_a=0$. The statement about the classes representing $4$ is Proposition~\ref{prop:Q4}. \qed
+
+\begin{table}[h]
+\centering\small
+\renewcommand{\arraystretch}{1.1}
+\begin{tabular}{@{}r r r r r r r@{}}
+\toprule
+$a$ & $N=ab$ & index & $B_a$ & coefficients checked & share of $p<10^6$ with $c_a(p)=2$ & $1/(2h)$\\
+\midrule
+1 & 23 & 24 & 2 & $10^5$ & 0.1660 & 0.1667\\
+2 & 44 & 72 & 6 & $10^5$ & 0.1664 & 0.1667\\
+3 & 63 & 96 & 8 & $10^5$ & 0.1248 & 0.1250\\
+4 & 80 & 144 & 12 & $10^5$ & 0.1237 & 0.1250\\
+5 & 95 & 120 & 10 & $10^5$ & 0.0618 & 0.0625\\
+6 & 108 & 216 & 18 & $10^5$ & 0.1660 & 0.1667\\
+7 & 119 & 144 & 12 & $10^5$ & 0.0487 & 0.0500\\
+8 & 128 & 192 & 16 & $10^5$ & 0.1244 & 0.1250\\
+9 & 135 & 216 & 18 & $10^5$ & 0.0829 & 0.0833\\
+10 & 140 & 288 & 24 & $10^5$ & 0.0829 & 0.0833\\
+11 & 143 & 168 & 14 & $10^5$ & 0.0496 & 0.0500\\
+12 & 144 & 288 & 24 & $10^5$ & 0.1243 & 0.1250\\
+\bottomrule
+\end{tabular}
+\caption{Levels, Sturm bounds, and the observed density against Corollary~\ref{cor:C}.}\label{tab:sturm}
+\end{table}
+
+\section{Proofs of Corollaries B and C}\label{sec:proofBC}
+
+\begin{proof}[Proof of Corollary~\ref{cor:B}]
+By Theorem~\ref{thm:A}, $c_a(p)=\frac12\bigl(r_{Q_0}(p)-r_{Q_4}(p)\bigr)$. Let $p\nmid ab$, so $p\nmid d_a$; note $d_a\le-23$. If $\chi_{d_a}(p)=-1$, both counts vanish by Lemma~\ref{lem:primes}(1). Otherwise exactly one class pair $\{P_+,P_-\}$ represents $p$. If it is the principal class, then $P_+\sim P_-\sim Q_0$, so $r_{Q_0}(p)=4$ and $r_{Q_4}(p)=0$, since $Q_4$ is not principal (Proposition~\ref{prop:Q4}); hence $c_a(p)=2$. If it is the class pair of $Q_4$, then $r_{Q_0}(p)=0$ and $r_{Q_4}(p)$ is $2$ or $4$ according as $Q_4$ is or is not distinct from its inverse, so $c_a(p)=-1$ or $-2$, with the ambiguous cases $a\in\{3,4,8,12\}$ given by Proposition~\ref{prop:Q4}. In every other case both counts vanish. The values at the finitely many $p\mid ab$ are read off from the $q$-expansions.
+\end{proof}
+
+\begin{proof}[Proof of Corollary~\ref{cor:C}]
+By Corollary~\ref{cor:B} the set in question is, up to finitely many primes, the set of primes represented by the principal form of discriminant $d_a$. A primitive positive definite form properly equivalent to its opposite represents a set of primes of Dirichlet density $1/(2h(d))$ \cite[Thm.~9.12]{Cox}, a consequence of the Chebotarev density theorem applied to the ring class field of the order of discriminant $d$. The principal form is its own opposite.
+\end{proof}
+
+\section{An elementary look at the case \texorpdfstring{$a=1$}{a=1}}\label{sec:elem}
+
+Lemma~\ref{lem:eta} and Theorem~\ref{thm:A} combine into an identity with no modular forms in it:
+\begin{equation}\label{eq:elem}
+\sum_{\substack{(u,v)\in\Z^2\\ au^2+bv^2=24n}}\chi_{12}(u)\chi_{12}(v)\;=\;2\bigl(r_{Q_0}(n)-r_{Q_4}(n)\bigr)\qquad(n\ge1).
+\end{equation}
+It invites a bijective proof. The mechanism is visible in the algebra of $\Q(\sqrt{d_a})$: with $\sigma=\sqrt{d_a}$,
+\[
+a\,(au^2+bv^2)=\mathrm{N}(au+v\sigma),\qquad \mathrm{N}(a+\sigma)=a^2+ab=24a,\qquad Q_0(x,y)=\mathrm{N}\bigl(x+y\tfrac{a+\sigma}{2}\bigr),
+\]
+so dividing $au+v\sigma$ by $a\pm\sigma$ turns a solution of $au^2+bv^2=24n$ into an element of norm $n$. For $a=1$ this gives the principal half of \eqref{eq:elem} directly.
+
+\begin{proposition}\label{prop:a1}
+Let $p\ge5$ be prime, $\sigma=\sqrt{-23}$, $\mathcal O=\Z[\omega]$ with $\omega=\frac{1+\sigma}{2}$, and $\beta=1+\sigma$, so $\mathrm{N}(\beta)=24$. The map
+\[
+(u,v)\longmapsto\begin{cases}\bigl((u+v\sigma)/\beta,\ \beta\bigr)&\text{if }u\equiv v\pmod{12},\\ \bigl((u+v\sigma)/\bar\beta,\ \bar\beta\bigr)&\text{if }u\equiv -v\pmod{12}\end{cases}
+\]
+is a bijection from $\{(u,v)\in\Z^2:u^2+23v^2=24p,\ \chi_{12}(u)\chi_{12}(v)=1\}$ onto $\{\gamma\in\mathcal O:\mathrm N(\gamma)=p\}\times\{\beta,\bar\beta\}$. Hence the number of solutions with $\chi_{12}(u)\chi_{12}(v)=1$ is $2\,r_{[1,1,6]}(p)$.
+\end{proposition}
+
+\begin{proof}
+For $u,v$ prime to $6$, $\chi_{12}(u)=\chi_{12}(v)$ holds exactly when $u\equiv\pm v\pmod{12}$, and the two signs cannot both occur since $2v\not\equiv0\pmod{12}$. If $v-u=12t$, then
+\[
+\frac{u+v\sigma}{\beta}=\frac{(u+v\sigma)(1-\sigma)}{24}=\frac{u+23v+(v-u)\sigma}{24}=(v-t)+t\omega\in\mathcal O,
+\]
+using $u+23v=24v-12t$. If $u+v=12t$, the same computation with $\bar\beta$ gives $-v+t\omega\in\mathcal O$. The norm is $24p/24=p$.
+
+Conversely let $\gamma=x+y\omega\in\mathcal O$ with $\mathrm N(\gamma)=p$. Then $\gamma\beta=(x-11y)+(x+y)\sigma$ and $\gamma\bar\beta=(x+12y)-x\sigma$; in the first case $v-u=12y$, in the second $u+v=12y$, and in both $u^2+23v^2=24p$. It remains to see that $u,v$ are prime to $6$. If $3\mid v$ then $3\mid u$ (because $u\equiv\pm v\bmod 3$), so $9\mid 24p$, impossible for $p\ne3$. If $2\mid v$ then $2\mid u$, and writing $u=2u'$, $v=2v'$ gives $u'^2-v'^2\equiv u'^2+23v'^2=6p\equiv 2$ or $6\pmod 8$, which no difference of two squares is. So the image of the inverse map lies in the stated set, and the two maps are mutually inverse.
+\end{proof}
+
+Proposition~\ref{prop:a1} accounts for the terms with sign $+1$ in \eqref{eq:elem}. The terms with sign $-1$ correspond in the same way to elements of the ideal class of $\form{2}{1}{3}$; we have checked this numerically for all primes below $2\cdot10^4$ but do not write out the bijection here.
+
+\begin{corollary}\label{cor:vdb}
+For every $n\ge1$, $\ \displaystyle r_{[1,1,6]}(n)=\frac23\Bigl(\sum_{m\mid n}\leg{-23}{m}+2c_1(n)\Bigr)$.
+\end{corollary}
+
+\begin{proof}
+Since $-23$ is fundamental with $h(-23)=3$, Dirichlet's formula gives $r_{Q_0}(n)+2r_{Q_4}(n)=2\sum_{m\mid n}\leg{-23}{m}$, the factor $2$ on $r_{Q_4}$ because $\form{2}{1}{3}$ and its inverse have the same theta series. Adding twice the identity $r_{Q_0}(n)-r_{Q_4}(n)=2c_1(n)$ of Theorem~\ref{thm:A} gives $3r_{Q_0}(n)=2\sum_{m\mid n}\leg{-23}{m}+4c_1(n)$.
+\end{proof}
+
+\section{Remarks and questions}\label{sec:questions}
+
+\begin{remark}[how to use the theorem]
+Theorem~\ref{thm:A} gives, for twelve discriminants at once, an $O(\sqrt n)$ formula for $r_{Q_0}(n)-r_{Q_4}(n)$ in terms of signed solutions of $au^2+bv^2=24n$, and an explicit weight-one cusp form whose prime coefficients detect the principal class. When the class group has only one non-principal class pair (here $a=1,2,6$, with $h=3$), the genus or Dirichlet sum recovers $r_{Q_0}(n)$ itself, as in Corollary~\ref{cor:vdb}; for the non-fundamental discriminants $-44$ and $-108$ the divisor sum must be replaced by its version for orders. The five non-eigenform cases give simple test examples of weight-one forms whose prime coefficients still take only the values $2,-1,0$.
+\end{remark}
+
+\begin{question}
+Is there a uniform bijective proof of \eqref{eq:elem}, covering both signs and all twelve $a$, along the lines of Proposition~\ref{prop:a1}? The identities $\mathrm N(a+\sigma)=24a$ and $Q_0=\mathrm N(x+y\frac{a+\sigma}2)$ hold for every $a$, and one expects $Q_4$ to enter through an invertible ideal of norm $4$ related to $a\pm\sigma$.
+\end{question}
+
+\begin{question}
+Which other weight-one $\eta$-quotients equal $\frac12(\theta_{Q}-\theta_{Q'})$ for two forms of the same discriminant? For fundamental discriminants $-D$ with odd class number, Akbary and Totani \cite{AT} show that the relevant cusp forms are $\eta$-quotients only for $D=23$, which is our case $a=1$; the other eleven cases here have even class number or non-fundamental discriminant.
+\end{question}
+
+\section{Computations}\label{sec:comp}
+
+All computations use exact integer arithmetic. The coefficients of $f_a$ come from the double pentagonal sum of Lemma~\ref{lem:eta}; for $n\le10^5$ this needs at most a few tens of thousands of terms. Theta coefficients come from enumerating lattice points.
+\begin{enumerate}
+\item The identity $2f_a=\theta_{Q_0}-\theta_{Q_4}$ holds coefficient by coefficient for $n\le10^5$ and all twelve $a$ (Appendix~\ref{app:code}). This exceeds every Sturm bound in Table~\ref{tab:sturm} by a factor of more than $4000$.
+\item The prime rule of Corollary~\ref{cor:B} was checked directly, against brute-force representation by $Q_0$ and $Q_4$, at every prime $p<10^6$ with $p\nmid ab$, for each $a$: $941{,}953$ checks, no failures.
+\item The reduced forms, class numbers, and the classes properly representing $4$ were obtained by enumerating all reduced forms of each discriminant and agree with Proposition~\ref{prop:Q4}.
+\item Corollary~\ref{cor:vdb} was checked for $n\le3000$, and the sign~$-1$ half of \eqref{eq:elem} for $a=1$ for all primes below $2\cdot10^4$.
+\end{enumerate}
+These computations came out of a simulation of rule systems built by the author; the drafting of this note was assisted by Claude (Anthropic).
+
+%======================================================================
+\part*{Part II. The same result without the jargon}
+%======================================================================
+
+\section{The question}
+
+Some primes can be written as $x^2+27y^2$ with whole numbers $x,y$ and some cannot:
+\[
+31=2^2+27\cdot1^2,\qquad 43=4^2+27\cdot1^2,\qquad 109=1^2+27\cdot2^2,
+\]
+while $7$, $13$, $19$ and $37$ cannot be written that way. Which primes work? For simpler expressions there is a simple test. A prime other than $2$ is $x^2+y^2$ exactly when it leaves remainder $1$ on division by $4$ (Fermat). For $x^2+27y^2$ no test of that kind exists: no rule of the form ``look at the remainder of $p$ divided by $m$'' gets every prime right, for any $m$. Euler guessed the true test, and Gauss proved it: $p$ must leave remainder $1$ on division by $3$, and $2$ must be a perfect cube modulo $p$.
+
+\section{The machine}
+
+Take the infinite product $(1-q)(1-q^2)(1-q^3)\cdots$ and multiply it out as if $q$ were a variable. Almost everything cancels:
+\[
+(1-q)(1-q^2)(1-q^3)\cdots = 1-q-q^2+q^5+q^7-q^{12}-q^{15}+q^{22}+q^{26}-\cdots
+\]
+Only the pentagonal numbers $1,2,5,7,12,15,22,26,\dots$ survive, each with a $+1$ or $-1$ in front. This is Euler's pentagonal number theorem.
+
+Now ``stretch'' the product in two ways, replacing $q$ by $q^6$ in one copy and by $q^{18}$ in another, multiply the two results, and multiply by one more $q$:
+\[
+q(1-q^6)(1-q^{12})(1-q^{18})\cdots\ \times\ (1-q^{18})(1-q^{36})\cdots
+= q-q^7-q^{13}-q^{19}+q^{25}+2q^{31}-q^{37}+2q^{43}-\cdots
+\]
+The number in front of $q^n$ is called the coefficient of $q^n$. Each coefficient is a small whole number, and computing it only requires adding up $+1$s and $-1$s.
+
+\section{The rule}
+
+Look at the coefficient in front of $q^p$ when $p$ is prime. It is $2$ exactly when $p$ can be written as $x^2+27y^2$. It is $-1$ for the other primes that leave remainder $1$ on division by $3$, and $0$ for the primes that leave remainder $2$ and for $p=3$. So the machine prints the answer to the question of the previous section for every prime at once.
+
+The numbers $6$ and $18$ add up to $24$, and that is the whole point. The natural object behind Euler's product is $\eta(z)=q^{1/24}(1-q)(1-q^2)\cdots$, which carries a factor $q^{1/24}$. Stretching by $a$ and by $b$ produces factors $q^{a/24}$ and $q^{b/24}$, and when $a+b=24$ they combine into exactly one $q$. So try every way to split $24$ into two whole numbers $a+b$. Each split gives a machine, and each machine answers a question of the same kind. The $a$-th machine answers ``is $p$ equal to $x^2+axy+6ay^2$ for some whole numbers $x,y$?''. After a change of variables this is the expression in the column ``$Q_0$ reduced'' of Table~\ref{tab:main}. For example the split $1+23$ answers whether $p=x^2+xy+6y^2$, and the split $12+12$ answers whether $p=x^2+36y^2$. The coefficient is $2$ for exactly the primes that pass. When it is $-1$ or $-2$, the prime fits a second expression, $4x^2+(a-4)xy+(a+1)y^2$.
+
+\section{Checking one case by hand}
+
+There is a way to compute a single coefficient with pencil and paper. For the split $6+18$ and a prime $p$, list the pairs of positive whole numbers $u,v$, neither divisible by $2$ or $3$, with
+\[
+u^2+3v^2=4p .
+\]
+Give each number a sign: $+1$ if it leaves remainder $1$ or $11$ on division by $12$, and $-1$ if it leaves remainder $5$ or $7$. Multiply the two signs for each pair and add over all pairs. The total is the coefficient of $q^p$. (This is Lemma~\ref{lem:eta} with $a=6$, $b=18$, after dividing $24p=6u^2+18v^2$ by $6$.)
+
+\begin{example}
+For $p=31$ we need $u^2+3v^2=124$. The pairs are $(11,1)$, since $121+3=124$, and $(7,5)$, since $49+75=124$. The signs are $(+1)(+1)=+1$ and $(-1)(-1)=+1$. The total is $2$, and indeed $31=2^2+27\cdot1^2$.
+\end{example}
+
+\begin{example}
+For $p=37$ we need $u^2+3v^2=148$. The only pair is $(1,7)$, since $1+147=148$, with sign $(+1)(-1)=-1$. The total is $-1$, and indeed $37$ is not of the form $x^2+27y^2$. It fits the second expression instead: $37=4\cdot3^2+2\cdot3\cdot(-1)+7\cdot(-1)^2$.
+\end{example}
+
+\section{Why a finite check proves an infinite statement}
+
+The claim covers infinitely many primes, so testing primes one by one, even a million of them, cannot prove it. What makes a proof possible is that both sides of Theorem~\ref{thm:A} are modular forms. A modular form is a function with an enormous amount of symmetry. The symmetry is so rigid that the whole function is pinned down by its first few coefficients, in the same way that a polynomial of degree $5$ is pinned down by its values at $6$ points. The number of coefficients that suffice is called the Sturm bound. For the twelve machines it is at most $24$ (Table~\ref{tab:sturm}).
+
+So the proof runs as follows. Known theorems show that the eta product is a modular form of a certain type, and that each ``count the ways to write $n$ as $Q(x,y)$'' series is a modular form of the same type. Then the two sides of the identity are compared for the first $24$ coefficients. If they agree there, they agree forever. We compared the first $100{,}000$, and they agree.
+
+\section{What is new and what is not}
+
+Pieces of this are old. The split $1+23$ is a 1952 result of van der Blij, and the split $6+18$ is a restatement of Gauss's cube test through the machine. Each individual identity can be proved by the method above, which specialists use routinely. What we could not find written down is the single statement covering all twelve splits, with the second expression given by one formula, $4x^2+(a-4)xy+(a+1)y^2$, for every $a$. Five of the twelve machines lack a property (multiplicativity) that usually explains rules like this, and the rule holds for them anyway. A specialist may still recognize the whole family; the honest status is ``proved, and possibly known''.
+
+\section{Glossary}
+
+\begin{description}
+\item[Prime] A whole number greater than $1$ whose only divisors are $1$ and itself.
+\item[Quadratic form] An expression $Ax^2+Bxy+Cy^2$ with whole-number coefficients. ``$p$ is represented by the form'' means $p=Ax^2+Bxy+Cy^2$ for some whole numbers $x,y$.
+\item[Discriminant] The number $B^2-4AC$. Forms with the same discriminant belong to one family. A change of variables can turn one form into another without changing which numbers it represents; such forms are called equivalent.
+\item[Principal form] The simplest form of a given discriminant, the one with $A=1$. In Table~\ref{tab:main} it is the column ``$Q_0$ reduced''.
+\item[Class number $h$] The number of essentially different forms of a given discriminant. Corollary~\ref{cor:C} says one prime in $2h$ has coefficient $2$, which matches the counts in Table~\ref{tab:sturm}.
+\item[Coefficient] The number in front of $q^n$ after a product is multiplied out.
+\item[Modular form] A function on the upper half of the complex plane with a large group of symmetries; the eta product and the theta series here are examples.
+\item[Theta series] The series $\sum_n r_Q(n)q^n$, where $r_Q(n)$ counts the pairs $(x,y)$ with $Q(x,y)=n$.
+\end{description}
+
+%======================================================================
+\appendix
+\section{Verification code}\label{app:code}
+The following script, which needs only Python and NumPy, checks Theorem~\ref{thm:A} for $n\le 10^5$ and all twelve $a$ in under a second.
+
+\begin{lstlisting}[language=Python]
+import numpy as np
+from math import isqrt
+
+def pentagonal(s, N):                 # prod (1 - q^{s n}) = sum_k (-1)^k q^{s k(3k-1)/2}
+    e, sg, k = [], [], 0
+    while True:
+        new = [kk for kk in ((k, -k) if k else (0,)) if s * kk * (3 * kk - 1) // 2 <= N]
+        if not new: return np.array(e), np.array(sg)
+        for kk in new:
+            e.append(s * kk * (3 * kk - 1) // 2); sg.append(-1 if kk % 2 else 1)
+        k += 1
+
+def eta_pair(a, b, N):                # coefficients of q * prod (1 - q^{an})(1 - q^{bn})
+    c = np.zeros(N + 1, dtype=np.int64)
+    E1, S1 = pentagonal(a, N); E2, S2 = pentagonal(b, N)
+    for e2, s2 in zip(E2, S2):
+        i = 1 + E1 + e2; m = i <= N
+        np.add.at(c, i[m], S1[m] * s2)
+    return c
+
+def theta(A, B, C, N):                # number of (x, y) with A x^2 + B x y + C y^2 = n
+    t = np.zeros(N + 1, dtype=np.int64); D = 4 * A * C - B * B
+    R = isqrt(4 * max(A, C) * N // D) + 2 + isqrt(N) * (abs(B) + 1)
+    for y in range(-isqrt(4 * A * N // D) - 2, isqrt(4 * A * N // D) + 3):
+        x = np.arange(-R, R + 1, dtype=np.int64)
+        v = A * x * x + B * x * y + C * y * y
+        np.add.at(t, v[(v >= 0) & (v <= N)], 1)
+    return t
+
+N = 100000
+for a in range(1, 13):
+    lhs = 2 * eta_pair(a, 24 - a, N)
+    rhs = theta(1, a, 6 * a, N) - theta(4, a - 4, a + 1, N)
+    print(a, 'identity holds for n <=', N, ':', bool((lhs == rhs).all()))
+\end{lstlisting}
+
+\begin{thebibliography}{99}
+\bibitem{AT} A. Akbary and Y. Totani, \emph{Binary quadratic forms of odd class number}, preprint, arXiv:2408.00184 (2024).
+\bibitem{vdB} F. van der Blij, \emph{Binary quadratic forms of discriminant $-23$}, Indag. Math. \textbf{14} (1952).
+\bibitem{Bu} D. A. Buell, \emph{Binary Quadratic Forms: Classical Theory and Modern Computations}, Springer, 1989.
+\bibitem{Cox} D. A. Cox, \emph{Primes of the Form $x^2+ny^2$: Fermat, Class Field Theory, and Complex Multiplication}, 2nd ed., Wiley, 2013.
+\bibitem{Iw} H. Iwaniec, \emph{Topics in Classical Automorphic Forms}, Graduate Studies in Mathematics 17, AMS, 1997.
+\bibitem{Koh} G. K\"ohler, \emph{Eta Products and Theta Series Identities}, Springer Monographs in Mathematics, Springer, 2011.
+\bibitem{Mar} Y. Martin, \emph{Multiplicative $\eta$-quotients}, Trans. Amer. Math. Soc. \textbf{348} (1996), 4825--4856.
+\bibitem{Ono} K. Ono, \emph{The Web of Modularity: Arithmetic of the Coefficients of Modular Forms and $q$-series}, CBMS Regional Conference Series in Mathematics 102, AMS, 2004.
+\bibitem{Sch} B. Schoeneberg, \emph{Elliptic Modular Functions}, Grundlehren 203, Springer, 1974.
+\bibitem{St} J. Sturm, \emph{On the congruence of modular forms}, in: Number Theory (New York, 1984--1985), Lecture Notes in Math. 1240, Springer, 1987, 275--280.
+\end{thebibliography}
+
+\end{document}

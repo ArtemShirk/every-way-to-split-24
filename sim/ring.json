@@ -1,0 +1,222 @@
+{
+ "X": 100000,
+ "elements": 70266,
+ "days": 70277,
+ "events_summary": {
+  "constitution": 1,
+  "logical": 6,
+  "contradiction": 1,
+  "ascent": 1
+ },
+ "special_events": [
+  {
+   "day": 33,
+   "kind": "contradiction",
+   "items": [
+    "(6, 0)"
+   ],
+   "note": "15 atoms; every number a product of atoms in one way",
+   "checks": null
+  },
+  {
+   "day": 33,
+   "kind": "ascent",
+   "items": [
+    "(6, 0)"
+   ],
+   "note": "ideal language (Kummer 1847, Dedekind 1871)",
+   "checks": [
+    true,
+    true,
+    true
+   ]
+  }
+ ],
+ "first_contradiction": {
+  "element": "6",
+  "norm": 36,
+  "factorizations": [
+   [
+    "2",
+    "3"
+   ],
+   [
+    "1 − √−5",
+    "1 + √−5"
+   ]
+  ],
+  "day": 33
+ },
+ "founders": [
+  "2",
+  "√−5",
+  "1 − √−5",
+  "1 + √−5",
+  "3",
+  "2 − √−5",
+  "2 + √−5",
+  "3 − √−5",
+  "3 + √−5",
+  "4"
+ ],
+ "ideal_checks": 117146,
+ "contradictions_after_ascent": 0,
+ "stats": [
+  {
+   "lo": 2,
+   "hi": 100,
+   "reducible": 35,
+   "nonunique": 10,
+   "share": 0.2857
+  },
+  {
+   "lo": 101,
+   "hi": 1000,
+   "reducible": 431,
+   "nonunique": 160,
+   "share": 0.3712
+  },
+  {
+   "lo": 1001,
+   "hi": 3000,
+   "reducible": 1013,
+   "nonunique": 398,
+   "share": 0.3929
+  },
+  {
+   "lo": 3001,
+   "hi": 10000,
+   "reducible": 3707,
+   "nonunique": 1496,
+   "share": 0.4036
+  },
+  {
+   "lo": 10001,
+   "hi": 30000,
+   "reducible": 10918,
+   "nonunique": 4473,
+   "share": 0.4097
+  },
+  {
+   "lo": 30001,
+   "hi": 100000,
+   "reducible": 39237,
+   "nonunique": 16574,
+   "share": 0.4224
+  }
+ ],
+ "all_lengths_equal": true,
+ "max_factorizations": [
+  36,
+  "126 − 126√−5",
+  95256
+ ],
+ "examples": [
+  [
+   "6",
+   [
+    [
+     "2",
+     "3"
+    ],
+    [
+     "1 − √−5",
+     "1 + √−5"
+    ]
+   ]
+  ],
+  [
+   "4 − 2√−5",
+   [
+    [
+     "2",
+     "2 − √−5"
+    ],
+    [
+     "1 + √−5",
+     "1 + √−5"
+    ]
+   ]
+  ],
+  [
+   "4 + 2√−5",
+   [
+    [
+     "2",
+     "2 + √−5"
+    ],
+    [
+     "1 − √−5",
+     "1 − √−5"
+    ]
+   ]
+  ],
+  [
+   "3 − 3√−5",
+   [
+    [
+     "1 − √−5",
+     "3"
+    ],
+    [
+     "1 + √−5",
+     "2 + √−5"
+    ]
+   ]
+  ],
+  [
+   "3 + 3√−5",
+   [
+    [
+     "1 − √−5",
+     "2 − √−5"
+    ],
+    [
+     "1 + √−5",
+     "3"
+    ]
+   ]
+  ],
+  [
+   "9",
+   [
+    [
+     "3",
+     "3"
+    ],
+    [
+     "2 − √−5",
+     "2 + √−5"
+    ]
+   ]
+  ]
+ ],
+ "factorization_records": 102245,
+ "ideal_disagreements": 0,
+ "atoms": 14925,
+ "atoms_prime_ideal": 4777,
+ "atoms_two_ideals": 10148,
+ "six_ideals": {
+  "2": {
+   "𝔭₂": 2
+  },
+  "3": {
+   "𝔭3,1": 1,
+   "𝔭3,2": 1
+  },
+  "1 + √−5": {
+   "𝔭₂": 1,
+   "𝔭3,1": 1
+  },
+  "1 − √−5": {
+   "𝔭₂": 1,
+   "𝔭3,2": 1
+  },
+  "6": {
+   "𝔭₂": 2,
+   "𝔭3,1": 1,
+   "𝔭3,2": 1
+  }
+ },
+ "seconds": 9.0
+}
